@@ -1,0 +1,39 @@
+{
+  "name": "coop_function_boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "prebuild": "typedoc",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prestart": "npm run build",
+    "start": "func start",
+    "test": "jest --watch",
+    "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit"
+  },
+  "dependencies": {
+    "@coop/azure": "^1.0.15"
+  },
+  "devDependencies": {
+    "@azure/functions": "^1.0.2-beta2",
+    "@types/jest": "^25.2.3",
+    "@types/node": "^14.0.5",
+    "@typescript-eslint/eslint-plugin": "^3.0.2",
+    "@typescript-eslint/parser": "^3.0.2",
+    "eslint": "^7.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "jest": "^26.0.1",
+    "jest-junit": "^10.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.0.0",
+    "typedoc": "^0.17.7",
+    "typescript": "^3.9.3"
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "outputDirectory": "./testing",
+    "outputName": "junit.xml"
+  }
+}

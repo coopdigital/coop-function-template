@@ -1,0 +1,181 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>coop_function_boilerplate</title>
+	<meta name="description" content="Documentation for coop_function_boilerplate">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">coop_function_boilerplate</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>coop_function_boilerplate</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#coop-retail-it-azure-functions-typescript-starter" id="coop-retail-it-azure-functions-typescript-starter" style="color: inherit; text-decoration: none;">
+					<h1>Coop Retail IT Azure Functions TypeScript Starter</h1>
+				</a>
+				<a href="#overview" id="overview" style="color: inherit; text-decoration: none;">
+					<h2>Overview</h2>
+				</a>
+				<p>This project is a starter template for Azure Function TypeScript applications.</p>
+				<p>The aim of the template is to help guide a common approach, making it easier to get building quicker and to ensure that each app meets the required development standards.</p>
+				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+					<h2>Getting Started</h2>
+				</a>
+				<ol>
+					<li>Clone this repo to a new folder for your project</li>
+				</ol>
+				<pre><code>git clone https:<span class="hljs-regexp">//</span>co-operative@dev.azure.com<span class="hljs-regexp">/co-operative/</span>Store%<span class="hljs-number">20</span>Futures<span class="hljs-regexp">/_git/</span>coop_function_boilerplate &lt;NEW_PROJECT_NAME&gt;</code></pre><ol start="2">
+					<li>Update the <code>git origin</code> to be the repo of your new project</li>
+				</ol>
+				<pre><code><span class="hljs-string">git </span><span class="hljs-string">remote </span><span class="hljs-built_in">set-url</span> <span class="hljs-string">origin </span>&lt;<span class="hljs-string">NEW_GIT_URL&gt;</span></code></pre><ol start="3">
+					<li>Use <code>npm</code> to install the project dependences</li>
+				</ol>
+				<pre><code>npm <span class="hljs-keyword">install</span></code></pre><blockquote>
+					<p><strong>Check for any new security vulnerabilities</strong></p>
+					<pre><code>npm audit --registry=https:<span class="hljs-regexp">//</span>registry.npmjs.org/ </code></pre><p>For issues cause by outdated packages run <code>npm audit fix</code> to resolve the issues.</p>
+					<p>To ensure that the template stays up to date please submit <code>Pull</code> requests when security issue are found.</p>
+				</blockquote>
+				<a href="#set-the-project-name-in-the-following-locations" id="set-the-project-name-in-the-following-locations" style="color: inherit; text-decoration: none;">
+					<h3>Set the project name in the following locations</h3>
+				</a>
+				<ul>
+					<li><code>public/index.html</code> - <code>&lt;meta name=&quot;description&quot;&gt;</code> and <code>&lt;title&gt;</code></li>
+					<li><code>public/manifest.json</code> - <code>short_name</code> and <code>name</code></li>
+					<li><code>package.json</code> - <code>name</code></li>
+				</ul>
+				<a href="#typescript" id="typescript" style="color: inherit; text-decoration: none;">
+					<h2>TypeScript</h2>
+				</a>
+				<p><code>TypeScript</code> is a typed superset of JavaScript. The introduction of types makes it easier to catch errors early and offers improve intellisense.</p>
+				<p>See <a href="https://www.typescriptlang.org/docs/home.html">here</a> for a starter guide.</p>
+				<p>See the <a href="https://cpdocs.azurewebsites.net/#/developer/coding-standards?id=typescript">UCP Docs</a> for the TypeScript naming standards.</p>
+				<a href="#debugging" id="debugging" style="color: inherit; text-decoration: none;">
+					<h2>Debugging</h2>
+				</a>
+				<p>Press <code>F5</code> to start debugging the function. To debug failing test use the <code>Jest</code> VSCode extension.</p>
+				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
+					<h2>Tests</h2>
+				</a>
+				<p>It is important to add unit tests for you app.</p>
+				<blockquote>
+					<p>You should aim to have a code coverage of at least <strong>80%</strong>.</p>
+				</blockquote>
+				<p>Run the command <code>npm run test</code> to start the test runner. This will monitor file changes and automatically run the tests as you dev.</p>
+				<p>Alternatively the following command <code>npm run test:ci</code> will run the tests and generate coverage reports in the <code>/test</code> folder.</p>
+				<p>If you have installed the <a href="https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters">Coverage Gutters</a> extension, select the <code>Watch</code> button in the status bar to display coverage in the editor.</p>
+				<a href="#build" id="build" style="color: inherit; text-decoration: none;">
+					<h2>Build</h2>
+				</a>
+				<p>In the root of the project there is an <code>azure-pipelines.yml</code> file. Use this file to setup a new Build Pipeline in Azure DevOps. The build includes Unit Tests, Code Coverage and WhiteBolt Open Source Scanner.</p>
+				<a href="#shared-folder" id="shared-folder" style="color: inherit; text-decoration: none;">
+					<h2><code>Shared</code> Folder</h2>
+				</a>
+				<p>The following structure should be used:</p>
+				<ul>
+					<li>Shared<ul>
+							<li>Dal - Data Access Layer. Create <code>Repository</code> classes for accessing the Database.</li>
+							<li>Dtos - Data Transfer Objects - Define TypeScript Types that are used for the API requests and responses.</li>
+							<li>Helpers - Shared <code>Helper</code> functions.</li>
+							<li>Models - Define TypeScript Types for the Data Models</li>
+							<li>Service - Create <code>Service</code> classes that abstact business logic away from the functions.</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_exampletrigger_index_.html">&quot;<wbr>Example<wbr>Trigger/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_shared_helpers_exception_.html">&quot;<wbr>Shared/<wbr>Helpers/<wbr>Exception&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_shared_helpers_http_.html">&quot;<wbr>Shared/<wbr>Helpers/<wbr>Http&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
