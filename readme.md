@@ -1,5 +1,7 @@
 # Coop Retail IT Azure Functions TypeScript Starter
 
+[![Build Status](https://dev.azure.com/co-operative/Store%20Futures/_apis/build/status/coop_function_boilerplate?branchName=master)](https://dev.azure.com/co-operative/Store%20Futures/_build/latest?definitionId=156&branchName=master)
+
 ## Overview
 
 This project is a starter template for Azure Function TypeScript applications.
