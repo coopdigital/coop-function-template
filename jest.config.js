@@ -14,4 +14,6 @@ module.exports = {
   coverageDirectory: 'testing/coverage',
   coverageReporters: ['cobertura', 'lcov', 'text'],
   reporters: ['default', 'jest-junit'],
+  testEnvironment: 'node',
+  testTimeout: 30000,
 };

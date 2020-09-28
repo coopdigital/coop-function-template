@@ -7,7 +7,7 @@ trigger:
   - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 steps:
   - task: NodeTool@0
@@ -19,6 +19,12 @@ steps:
     inputs:
       command: 'custom'
       customCommand: 'i -g azure-functions-core-tools@3 --unsafe-perm true'
+  - task: Npm@1
+    displayName: "Install Azure Function Core Tools"
+    inputs:
+      command: 'custom'
+      customCommand: 'i -g azure-functions-core-tools@3 --unsafe-perm true'
+      
   - task: Npm@1
     displayName: 'Install Application Dependencies'
     inputs:
