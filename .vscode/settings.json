@@ -5,5 +5,6 @@
   "azureFunctions.projectRuntime": "~2",
   "debug.internalConsoleOptions": "neverOpen",
   "azureFunctions.preDeployTask": "npm prune",
-  "jest.autoEnable": false
+  "jest.autoEnable": false,
+  "coverage-gutters.coverageReportFileName": "testing/coverage/**/index.html"
 }
