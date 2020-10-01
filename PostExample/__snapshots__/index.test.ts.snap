@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Post Example Tests 500 - Service Exception 1`] = `
+Object {
+  "Field1": "Test Data",
+  "Field2": 1234,
+}
+`;
+
+exports[`Post Example Tests Success 1`] = `
+Object {
+  "Field1": "Test Data",
+  "Field2": 1234,
+}
+`;

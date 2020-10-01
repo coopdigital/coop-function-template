@@ -5,7 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "example/{name}",
+      "route": "example/{id}",
       "methods": [
         "get"
       ]
@@ -16,5 +16,6 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/ExampleTrigger/index.js"
+  "scriptFile": "../dist/GetExample/index.js"
 }
+ 

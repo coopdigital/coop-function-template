@@ -6,3 +6,10 @@ export const getResponseHeaders = (): any => {
   };
   return responseHeaders;
 };
+
+/** HTTP Trigger Results */
+export type Result = {
+  status?: number;
+  body?: any;
+  headers?: object;
+};

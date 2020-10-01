@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get Example Tests Success 1`] = `
+Object {
+  "Field1": "Test Data",
+  "Field2": 1234,
+}
+`;

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExampleService Tests get - Not found 1`] = `null`;
+
+exports[`ExampleService Tests get - Success 1`] = `
+Object {
+  "Field1": "Test Data",
+  "Field2": 1234,
+}
+`;
+
+exports[`ExampleService Tests update - Success 1`] = `
+Object {
+  "Field1": "Test Data",
+  "Field2": 1234,
+  "id": "Test ID",
+}
+`;

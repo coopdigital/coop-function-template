@@ -92,3 +92,8 @@ out
 bin
 obj
 appsettings.json
+
+# Azure Storage
+__azurite*
+__blobstorage__
+__queuestorage__

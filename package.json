@@ -12,6 +12,7 @@
     "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit"
   },
   "dependencies": {
+    "@azure/cosmos": "^3.9.2",
     "@coop/azure": "^1.0.15",
     "axios": "^0.19.2"
   },

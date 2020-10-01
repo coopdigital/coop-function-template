@@ -1,7 +1,12 @@
 {
   "IsEncrypted": false,
   "Values": {
-    "AzureWebJobsStorage": "",
-    "FUNCTIONS_WORKER_RUNTIME": "node"
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "APPINSIGHTS_INSTRUMENTATIONKEY": "d8db7f54-7758-4a5a-bfd1-82e205c80a59",
+    "cosmos_endpoint":"https://apitemplatecosmos.documents.azure.com:443/",
+    "cosmos_key":"dXMnovpJKYzIR0QW1AEomCEOTwOjPu4M4bqfPUmA4x4BmJl2kZJmDM8zcr4jlTMmC5wUpsoYvScLCowJcACO5Q==",
+    "cosmos_database":"ExampleDatabase",
+    "cosmos_container":"ExampleContainer"
   }
 }
