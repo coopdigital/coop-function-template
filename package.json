@@ -14,7 +14,8 @@
   "dependencies": {
     "@azure/cosmos": "^3.9.2",
     "@coop/azure": "^1.0.15",
-    "axios": "^0.19.2"
+    "axios": "^0.21.1",
+    "joi": "^17.4.0"
   },
   "devDependencies": {
     "@azure/functions": "^1.0.2-beta2",

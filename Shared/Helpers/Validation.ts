@@ -1,41 +1,21 @@
 import { Context } from '@azure/functions';
-import { instanceOfExampleDto } from '../Dtos/ExampleDto';
+import Joi from 'joi';
 
-/** Validates the query string to check that Id is a valid Guid */
-export const validateQueryString = (context: Context, id: string): boolean => {
-  let result = true;
+export const idSchema = Joi.string().guid();
 
-  const isValidId = /^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$/.test(
-    id
-  );
-  if (!isValidId) {
-    result = false;
-    context.res = {
-      status: 400,
-      body: 'Please provide a valid GUID Id',
-    };
-  }
-
-  return result;
-};
-
-/** Checks the Body to ensure that it is valid */
-export const validateExampleBody = (
-  context: Context,
-  example: any
+export const validate = (
+  schema: Joi.ObjectSchema | Joi.StringSchema | Joi.NumberSchema,
+  request: any,
+  context: Context
 ): boolean => {
-  let result = true;
+  const { error } = schema.validate(request);
 
-  // Checks the example matches the body
-  if (!instanceOfExampleDto(example)) {
-    result = false;
+  if (error !== undefined) {
     context.res = {
       status: 400,
-      body: 'Please provide a valid Example in the Body',
+      body: error.message,
     };
   }
 
-  // Add additional validation for individual fields.
-
-  return result;
+  return error === undefined;
 };

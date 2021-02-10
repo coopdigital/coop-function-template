@@ -1,13 +1,10 @@
 import { AzureFunction, Context, HttpRequest } from '@azure/functions';
 import ExampleService from '../Shared/Services/ExampleService';
 import ExampleRepository from '../Shared/Dal/ExampleRepository';
-import {
-  validateExampleBody,
-  validateQueryString,
-} from '../Shared/Helpers/Validation';
+import { validate, idSchema } from '../Shared/Helpers/Validation';
 import AppInsights from '@coop/azure/lib/AppInsights';
 import { getResponseHeaders, Result } from '../Shared/Helpers/Http';
-import { ExampleDto } from '../Shared/Dtos/ExampleDto';
+import { ExampleDto, exampleDtoSchema } from '../Shared/Dtos/ExampleDto';
 
 // Create an instance of the Service(s)
 const exampleService = new ExampleService(ExampleRepository);
@@ -20,12 +17,12 @@ const httpTrigger: AzureFunction = async function (
   context.log('PostExample trigger function processed a request.');
 
   const { id } = req.params;
-  if (!validateQueryString(context, id)) {
+  if (!validate(idSchema, id, context)) {
     return;
   }
 
   const { example } = req.body;
-  if (!validateExampleBody(context, example)) {
+  if (!validate(exampleDtoSchema, example, context)) {
     return;
   }
 
