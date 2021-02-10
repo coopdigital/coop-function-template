@@ -1,13 +1,11 @@
+import Joi from 'joi';
+
 export type ExampleDto = {
   Field1: string;
   Field2: number;
 };
 
-export const instanceOfExampleDto = (object: any): object is ExampleDto => {
-  return (
-    object !== null &&
-    typeof object === 'object' &&
-    'Field1' in object &&
-    'Field2' in object
-  );
-};
+export const exampleDtoSchema = Joi.object({
+  Field1: Joi.string().max(30).required(),
+  Field2: Joi.number().required(),
+}).required();
