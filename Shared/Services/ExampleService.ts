@@ -1,16 +1,13 @@
-import { ExampleRepository } from '../Dal/ExampleRepository';
+import { Service } from 'typedi';
+import ExampleRepository from '../Dal/ExampleRepository';
 import { ExampleDto } from '../Dtos/ExampleDto';
 import { ExampleModel } from '../Models/ExampleModel';
 
 /** Example Service, abstract business logic from the Function */
+@Service()
 export default class ExampleService {
-  /** The Data Access Layer repository */
-  exampleRepository: ExampleRepository;
-
   /** Initialises the Service */
-  constructor(exampleRepository: ExampleRepository) {
-    this.exampleRepository = exampleRepository;
-  }
+  constructor(private exampleRepository: ExampleRepository) {}
 
   /** Gets a example record by id */
   public async get(id: string): Promise<ExampleDto> {

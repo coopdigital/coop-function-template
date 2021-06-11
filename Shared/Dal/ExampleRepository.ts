@@ -1,13 +1,15 @@
-import { CosmosClient } from '@azure/cosmos';
+import { Container, CosmosClient } from '@azure/cosmos';
+import { Service } from 'typedi';
 import AppInsights from '@coop/azure/lib/AppInsights';
 import { ExampleModel } from '../Models/ExampleModel';
 
 /** Example Cosmos DB Repository */
-export class ExampleRepository {
+@Service()
+export default class ExampleRepository {
   /** The cosmosClient, this connection should be maintained across instances */
   private cosmosClient: CosmosClient;
   /** The **Database** container */
-  private container: any;
+  private container: Container;
 
   /** Initialises the *Cosmos DB* and gets the **database** and **container** */
   constructor() {
@@ -58,6 +60,3 @@ export class ExampleRepository {
     await this.container.items.upsert(exampleModel);
   }
 }
-
-/** Exports a Static Instance of the Database to reduce outbound connections */
-export default new ExampleRepository();

@@ -1,42 +1,52 @@
-import ExampleService from "./ExampleService";
-import MockDatabaseRespository from  '../Dal/__mocks__/ExampleRepository';
-import { ExampleRepository } from "../Dal/ExampleRepository";
+import ExampleService from './ExampleService';
+import ExampleRepository from '../Dal/ExampleRepository';
+jest.mock('../Dal/ExampleRepository');
 
-describe('ExampleService Tests',()=>{
-    beforeEach(()=>{
-        MockDatabaseRespository.getExampleById.mockClear();
-        MockDatabaseRespository.updateExampleModel.mockClear();
-    })
-    it('get - Success', async ()=>{
-        const exampleService = new ExampleService(MockDatabaseRespository as unknown as ExampleRepository);
-        
-        const result = await exampleService.get('TEST ID');
+describe('ExampleService Tests', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+  it('get - Success', async () => {
+    const mockDatabaseRepository = new ExampleRepository();
 
-        expect(result).toMatchSnapshot();
-    })
+    const exampleService = new ExampleService(mockDatabaseRepository);
 
-    it('get - Not found', async ()=>{
-        MockDatabaseRespository.getExampleById.mockImplementation(()=>{ 
-            return null;
-        })
-        const exampleService = new ExampleService(MockDatabaseRespository as unknown as ExampleRepository);
-        
-        const result = await exampleService.get('TEST ID');
+    const result = await exampleService.get('TEST ID');
 
-        expect(result).toMatchSnapshot();
-    })
+    expect(result).toMatchSnapshot();
+  });
 
-    it('update - Success', async () => {
-        const testData = {
-            Field1:'Test Data',
-            Field2:1234
-        }    
+  it('get - Not found', async () => {
+    const mockDatabaseRepository = new ExampleRepository();
+    (mockDatabaseRepository.getExampleById as jest.Mock).mockImplementation(
+      () => {
+        return null;
+      }
+    );
+    const exampleService = new ExampleService(mockDatabaseRepository);
 
-        const exampleService = new ExampleService(MockDatabaseRespository as unknown as ExampleRepository);
+    const result = await exampleService.get('TEST ID');
 
-        await exampleService.update('Test ID', testData);
+    expect(result).toMatchSnapshot();
+  });
 
-        expect(MockDatabaseRespository.updateExampleModel.mock.calls.length).toBe(1);
-        expect(MockDatabaseRespository.updateExampleModel.mock.calls[0][0]).toMatchSnapshot();
-    })
-})
+  it('update - Success', async () => {
+    const testData = {
+      Field1: 'Test Data',
+      Field2: 1234,
+    };
+
+    const mockDatabaseRepository = new ExampleRepository();
+
+    const exampleService = new ExampleService(mockDatabaseRepository);
+
+    await exampleService.update('Test ID', testData);
+
+    expect(
+      (mockDatabaseRepository.updateExampleModel as jest.Mock).mock.calls.length
+    ).toBe(1);
+    expect(
+      (mockDatabaseRepository.updateExampleModel as jest.Mock).mock.calls[0][0]
+    ).toMatchSnapshot();
+  });
+});

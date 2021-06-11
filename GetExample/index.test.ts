@@ -3,11 +3,11 @@ import Context from '../testing/defaultContext';
 // @ts-ignore
 import { mockGet } from '../Shared/Services/ExampleService';
 jest.mock('../Shared/Services/ExampleService.ts');
-jest.mock('../Shared/Dal/ExampleRepository.ts');
+jest.mock('typedi');
 
 describe('Get Example Tests', () => {
   beforeEach(() => {
-    (mockGet as jest.Mock).mockClear();
+    jest.clearAllMocks();
   });
 
   it('Success', async () => {

@@ -1,12 +1,13 @@
+import 'reflect-metadata';
+import { Container } from 'typedi';
 import { AzureFunction, Context, HttpRequest } from '@azure/functions';
 import ExampleService from '../Shared/Services/ExampleService';
-import ExampleRepository from '../Shared/Dal/ExampleRepository';
 import { validate, idSchema } from '../Shared/Helpers/Validation';
 import AppInsights from '@coop/azure/lib/AppInsights';
 import { getResponseHeaders, Result } from '../Shared/Helpers/Http';
 
 // Create an instance of the Service(s)
-const exampleService = new ExampleService(ExampleRepository);
+const exampleService = Container.get(ExampleService);
 
 /** Gets an Example */
 const httpTrigger: AzureFunction = async function (

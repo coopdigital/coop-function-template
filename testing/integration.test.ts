@@ -6,7 +6,8 @@ describe('Integration Tests', () => {
   let func: ChildProcess;
 
   beforeAll(async () => {
-    func = exec('npx func start', (error, stdout, stderr) => {
+    // *** Disabled for now as this approach doesn't always work ***
+    /*func = exec('npx func start', (error, stdout, stderr) => {
       if (error) {
         console.log(error.stack);
         console.log('Error code: ' + error.code);
@@ -16,15 +17,15 @@ describe('Integration Tests', () => {
       console.log('Child Process STDERR: ' + stderr);
     });
 
-    return sleep(10000);
+    return sleep(10000);*/
   });
 
   afterAll(async () => {
-    const processesList = await find('name', 'func.exe');
+    /*const processesList = await find('name', 'func.exe');
 
     if (processesList.length > 0) {
       process.kill(processesList[0].pid);
-    }
+    }*/
   });
 
   it('Example Test - Success', async () => {

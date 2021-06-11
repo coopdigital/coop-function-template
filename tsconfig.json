@@ -7,7 +7,9 @@
     "sourceMap": true,
     "strict": false,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
   },
   "exclude": ["node_modules", "**/*.test.ts", "**/__mocks__/**", "testing/**"],
   "typedocOptions": {
