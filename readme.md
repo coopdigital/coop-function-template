@@ -465,11 +465,11 @@ We use **Jest** as our test framework.
 
 The command `npm test` runs **Jest** in watch mode which will constantly monitor code and rerun the tests as you make changes.
 
-![image.png](/.attachments/image-7e189214-9b03-425e-addd-7ece387e19a6.png)
+![image.png](/JestTests.png)
 
 The command `npm run test:ci` runs Jest and generates a coverage report that drives the Coverage Gutters.
 
-![image.png](/.attachments/image-58e885b7-ff1c-4d01-97d0-c5eef154e1f1.png)
+![image.png](/CoverageGutters.png)
 
 ## Unit Tests
 
