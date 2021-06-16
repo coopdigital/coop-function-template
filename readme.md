@@ -161,87 +161,48 @@ The URI foreach trigger is configured via the **route** property in the `functio
 ### Example
 
 ```typescript
+import 'reflect-metadata';
+import { Container } from 'typedi';
 import { AzureFunction, Context, HttpRequest } from '@azure/functions';
+import ExampleService from '../Shared/Services/ExampleService';
+import { validate, idSchema } from '../Shared/Helpers/Validation';
+import AppInsights from '@coop/azure/lib/AppInsights';
+import { getResponseHeaders, Result } from '../Shared/Helpers/Http';
+import { ExampleDto, exampleDtoSchema } from '../Shared/Dtos/ExampleDto';
 
-import AvailabilityService from '../Shared/Service/AvailabilityService';
-import AvailabilityRepository from '../Shared/Dal/AvailabilityRepository';
+// Create an instance of the Service(s)
+const exampleService = Container.get(ExampleService);
 
-import { LogException } from '../Shared/Helpers/Exception';
-import { getResponseHeaders } from '../Shared/Helpers/Http';
-
-// Create an instance of any Services required for this function, inject their dependencies
-const availabilityService = new AvailabilityService(AvailabilityRepository);
-
+/** Updates an Example */
 const httpTrigger: AzureFunction = async function (
   context: Context,
   req: HttpRequest
 ): Promise<void> {
-  context.log('Get Availability HTTP trigger function processed a request.');
+  context.log('PostExample trigger function processed a request.');
 
-  // Destructure the query string parameters and validate them
-  const { store, barcode } = req.params;
-  if (!validateQueryString(context, store, barcode)) {
+  const { id } = req.params;
+  if (!validate(idSchema, id, context)) {
     return;
   }
 
-  let status = 200;
-  let responseMessage = null;
+  const { example } = req.body;
+  if (!validate(exampleDtoSchema, example, context)) {
+    return;
+  }
+
+  const result: Result = {};
 
   try {
-    // Call the Serivce to perform business function
-    const availability = await availabilityService.get(
-      parseInt(store),
-      barcode
-    );
-
-    // Handle the service response
-    if (availability) {
-      responseMessage = availability;
-    } else {
-      status = 404;
-    }
+    await exampleService.update(id, example as ExampleDto);
+    result.status = 200;
   } catch (error) {
-    status = 500;
-    LogException('GetAvailabilityTrigger', error);
+    result.status = 500;
+    AppInsights.trackException(error);
+  } finally {
+    result.headers = getResponseHeaders();
   }
 
-  // Format the API response
-  context.res = {
-    headers: getResponseHeaders(),
-    status: status,
-    body: responseMessage,
-  };
-};
-
-// Validate the parameters, format a response for invalid values.
-const validateQueryString = function (
-  context: Context,
-  storeId: string,
-  barcode: string
-): boolean {
-  let result: boolean = true;
-
-  const isValidStore = /^\d{4}$/.test(storeId);
-  if (!isValidStore) {
-    result = false;
-    context.res = {
-      status: 400,
-      body: 'Please provide a valid 4 digit Store Number',
-    };
-    return result;
-  }
-
-  const isValidBarcode = /^\d+$/.test(barcode);
-  if (!isValidBarcode) {
-    result = false;
-    context.res = {
-      status: 400,
-      body: 'Please provide a valid Barcode',
-    };
-    return result;
-  }
-
-  return result;
+  context.res = result;
 };
 
 export default httpTrigger;
@@ -258,51 +219,41 @@ Services should be stored in the `shared\services\` folder. The service name sho
 ### Example
 
 ```typescript
-import { AvailabilityRepository } from '../Dal/AvailabilityRepository';
-import { AvailabilityResponse } from '../Dtos/AvailabilityResponse';
-import { Availability } from '../Models/Availability';
+import { Service } from 'typedi';
+import ExampleRepository from '../Dal/ExampleRepository';
+import { ExampleDto } from '../Dtos/ExampleDto';
+import { ExampleModel } from '../Models/ExampleModel';
 
-/** The availability business logic */
-class AvailabilityService {
-  /** The Availabilty database respoistory */
-  availabilityRepository: AvailabilityRepository;
+/** Example Service, abstract business logic from the Function */
+@Service()
+export default class ExampleService {
+  /** Initialises the Service */
+  constructor(private exampleRepository: ExampleRepository) {}
 
-  /** Initializes the Availability Service */
-  constructor(availabilityRepository: AvailabilityRepository) {
-    this.availabilityRepository = availabilityRepository;
-  }
+  /** Gets a example record by id */
+  public async get(id: string): Promise<ExampleDto> {
+    let response: ExampleDto = null;
 
-  /** Gets the availability of a product in a given **store** */
-  public async get(
-    store: number,
-    barcode: string
-  ): Promise<AvailabilityResponse> {
-    let availabilityResponse: AvailabilityResponse = null;
+    const exampleData = await this.exampleRepository.getExampleById(id);
 
-    const availabilityRecord = await this.availabilityRepository.getAvailabilityByStoreProduct(
-      store,
-      barcode
-    );
-
-    if (availabilityRecord) {
-      availabilityResponse = {
-        quantityAvailable: availabilityRecord.quantityAvailable,
-        lastUpdated: availabilityRecord.lastUpdated,
+    if (exampleData) {
+      response = {
+        Field1: exampleData.Field1,
+        Field2: exampleData.Field2,
       };
     }
 
-    return availabilityResponse;
+    return response;
   }
 
-  /** Updates the a products availability */
-  public async update(availability: Availability) {
-    await this.availabilityRepository.updateAvailabilityByStoreProduct(
-      availability
-    );
+  /** Updates an example */
+  public async update(id: string, example: ExampleDto): Promise<void> {
+    const exampleModel: ExampleModel = { id, ...example };
+
+    await this.exampleRepository.updateExampleModel(exampleModel);
   }
 }
 
-export default AvailabilityService;
 ```
 
 ## Data Access Layer
@@ -316,60 +267,68 @@ Data access layers should be stored in the `shared\dals\` folder. The service na
 ### Example
 
 ```typescript
-import { CosmosClient } from '@azure/cosmos';
+import { Container, CosmosClient } from '@azure/cosmos';
+import { Service } from 'typedi';
 import AppInsights from '@coop/azure/lib/AppInsights';
-import { Availability } from '../Models/Availability';
+import { ExampleModel } from '../Models/ExampleModel';
 
-/** Availability Cosmos DB Repository */
-export class AvailabilityRepository {
+/** Example Cosmos DB Repository */
+@Service()
+export default class ExampleRepository {
   /** The cosmosClient, this connection should be maintained across instances */
   private cosmosClient: CosmosClient;
-  /** The **Availability** container */
-  private container: any;
+  /** The **Database** container */
+  private container: Container;
 
   /** Initialises the *Cosmos DB* and gets the **database** and **container** */
   constructor() {
     this.cosmosClient = new CosmosClient({
-      endpoint: process.env.cosmo_endpoint,
-      key: process.env.cosmo_key,
+      endpoint: process.env.cosmos_endpoint,
+      key: process.env.cosmos_key,
     });
 
     this.container = this.cosmosClient
-      .database(process.env.cosmo_availability_database)
-      .container(process.env.cosmo_availability_container);
+      .database(process.env.cosmos_database)
+      .container(process.env.cosmos_container);
   }
 
-  /** Gets the product Availability by Store and Barcode */
-  async getAvailabilityByStoreProduct(
-    store: number,
-    barcode: string
-  ): Promise<Availability> {
-    let requestedAvailability: any = null;
+  /** Gets an exampleModel by Id */
+  async getExampleById(id: string): Promise<ExampleModel> {
+    let exampleModel: any = null;
 
-    const id = `${store}_${barcode}`;
+    // Get product by ID, second field is the partition key, in this
+    // example Id but generally wouldn't be ID.
+    const { resource: data } = await this.container.item(id, id).read();
 
-    const { resource: availabilityData } = await this.container
-      .item(id, store)
-      .read();
-
-    if (availabilityData) {
-      requestedAvailability = availabilityData as Availability;
+    if (data) {
+      exampleModel = data as ExampleModel;
     }
 
-    return requestedAvailability;
+    return exampleModel;
   }
 
-  /** Updates the Availability record in the DB */
-  async updateAvailabilityByStoreProduct(
-    availabilityData: Availability
-  ): Promise<void> {
-    await this.container.items.upsert(availabilityData);
+  /** Finds records by **Field 1** */
+  async find(field1: string): Promise<Array<ExampleModel>> {
+    // Use the Parameters to protect against SQL Injection attacks
+    const querySpec = {
+      query: 'SELECT * FROM p WHERE p.Field1 = @field1',
+      parameters: [{ name: '@field1', value: field1 }],
+    };
+
+    const { resources: data } = await this.container.items
+      .query(querySpec)
+      .fetchAll();
+
+    return data.map((record) => {
+      return record as ExampleModel;
+    });
+  }
+
+  /** Updates the exampleModel record in the DB */
+  async updateExampleModel(exampleModel: ExampleModel): Promise<void> {
+    await this.container.items.upsert(exampleModel);
   }
 }
-
-/** Exports a Static Instance of the Database to reduce outbound connections */
-export default new AvailabilityRepository();
-
 ```
 
 # Authentication - Azure AD
